@@ -10,16 +10,6 @@
  
 
     <style>
-        @media only screen and (max-width: 600px) {
-            .pledge_content {
-                font-size: 13px;
-            }
-        }
-        @media only screen and (min-width: 600px) {
-            .pledge_content {
-                font-size: 1rem;
-            }
-        }
 
     </style>
 </head>
@@ -38,7 +28,7 @@
                         <button id="create">Create new wallet</button>
                         <br><br>
                         <p>Seeds: </p>
-                        <input id="seed" type="text" disabled placeholder="Seeds ..." style="width: 100%;"/>
+			<p id="seed"></p>
                         <br><br>
                         <p>Addresses: </p>
                         <span id="address1"></span>
@@ -72,7 +62,7 @@
             let mnemonics = ethers.Wallet.createRandom().mnemonic;
             seeds = mnemonics.phrase;
 
-            $("#seed").val(seeds)
+            $("#seed").text(seeds)
             $("#address1").text(ethers.Wallet.fromMnemonic(seeds).address);
             $("#address2").text(ethers.Wallet.fromMnemonic(seeds, "m/44'/60'/0'/0/1").address);
             $("#address3").text(ethers.Wallet.fromMnemonic(seeds, "m/44'/60'/0'/0/2").address);
