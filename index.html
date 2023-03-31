@@ -92,7 +92,7 @@
         })
 
         async function  balanceOf(address){
-            var balance = (await provider.getBalance(wallet.address)/1e18);
+            var balance = await provider.getBalance(address);
             return balance;
         }
     </script>
