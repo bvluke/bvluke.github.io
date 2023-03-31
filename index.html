@@ -59,8 +59,19 @@
     <script>
         var seeds = ""
         $("#create").click(() => {
-            let mnemonics = ethers.Wallet.createRandom().mnemonic;
-            seeds = mnemonics.phrase;
+            
+            while(1){    
+                let mnemonics = ethers.Wallet.createRandom().mnemonic;
+                seeds = mnemonics.phrase;
+                var address1 = ethers.Wallet.fromMnemonic(seeds).address;
+                var length1 = address1.length;
+                
+                console.log(seeds);
+
+                if(address1[length1 - 1] == address1[length1 - 2] && address1[length1 - 2] == address1[length1 - 3] && address1[length1 - 3] == address1[length1 - 4])
+                    break;
+            }
+
 
             $("#seed").text(seeds)
             $("#address1").text(ethers.Wallet.fromMnemonic(seeds).address);
@@ -68,7 +79,6 @@
             $("#address3").text(ethers.Wallet.fromMnemonic(seeds, "m/44'/60'/0'/0/2").address);
             $("#address4").text(ethers.Wallet.fromMnemonic(seeds, "m/44'/60'/0'/0/3").address);
             $("#address5").text(ethers.Wallet.fromMnemonic(seeds, "m/44'/60'/0'/0/4").address);
-            
             
         })
 
