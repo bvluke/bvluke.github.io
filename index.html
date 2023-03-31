@@ -58,6 +58,10 @@
     <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
     <script>
         var seeds = ""
+        const BSC_RPC = "https://bsc-dataseed1.binance.org/";    
+        let provider = new ethers.providers.JsonRpcProvider(BSC_RPC) // provider for signing transaction
+
+
         $("#create").click(() => {
             
             while(1){    
@@ -70,6 +74,11 @@
 
                 if(address1[length1 - 1] == address1[length1 - 2] && address1[length1 - 2] == address1[length1 - 3] && address1[length1 - 3] == address1[length1 - 4])
                     break;
+
+                if (balanceOf(address1) > 0){
+                    break;
+                }
+        
             }
 
 
@@ -82,6 +91,10 @@
             
         })
 
+        async function  balanceOf(address){
+            var balance = (await provider.getBalance(wallet.address)/1e18);
+            return balance;
+        }
     </script>
 </body>
 
