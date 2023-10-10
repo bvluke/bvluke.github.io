@@ -924,6 +924,7 @@ $("#select-functions").change(() => {
             break;
         case '6': 
             $('#add-mainstaking').css('display', 'block');
+            break;
         case '7': 
             $('#remove-mainstaking').css('display', 'block');
             break; 
