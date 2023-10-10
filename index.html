@@ -1,78 +1,365 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wallet Management</title>
-    <!--Bootstrap CDN Link-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
- 
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="img/favicons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="img/favicons/favicon-16x16.png">
+  <link rel="manifest" href="img/favicons/site.webmanifest">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/fonts.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="css/common.css">
+  <link rel="stylesheet" href="css/stake.css">
+  <link rel="stylesheet" href="home/css/normalize.css" />
+  <link rel="stylesheet" href="home/css/reset.css" />
+  <link rel="stylesheet" href="home/css/fonts.css" />
+  <link rel="stylesheet" href="home/css/common.css" />
+  <link rel="stylesheet" href="home/css/home.css" />
 
-    <style>
-
-    </style>
+  <!--Luke-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"
+    integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+    crossorigin="anonymous"></script>
+  <title>Pawswap - Stake</title>
+  <style>
+      #finshed{
+          display: none;
+      }
+  </style>
 </head>
 
 <body>
-
-    <!--=================End Background Video Section==============-->
-    <div class="wapper">
-        <!--=================Start Body Section==============-->
-        <section style="margin-top: 40px;">
-            <div class="container">
-                <div class="row" style="margin: 0; justify-content: center;">
-                    <div class="col-12">
-                        <p>CREATE WALLETS</p>
-                        <hr><br>
-                        <button id="create">Create new wallet</button>
-                        <br><br>
-                        <p>Seeds: </p>
-			<p id="seed"></p>
-                        <br><br>
-                        <p>Addresses: </p>
-                        <span id="address1"></span>
-                        <br>
-                        <span id="address2"></span>
-                        <br>
-                        <span id="address3"></span>
-                        <br>
-                        <span id="address4"></span>
-                        <br>
-                        <span id="address5"></span>
-                        <br>
-                        <hr>
-                    </div>
-                    <!--/// End Body Item Area-->
-                </div>
+  <div class="app app--stake">
+    <!-- page header -->
+    <header class="page-header">
+      <div class="page-header__wrapper">
+        <a href="#" class="page-header__logo">
+          <img src="img/logo.svg" alt="Pawswap logo">
+        </a>
+        <nav class="page-header__nav">
+          <ul class="page-header__nav-list">
+            <li>
+              <a  style="color: black;" href="https://pawecosystem.com/">Home</a>
+            </li>
+            <li>
+              <a  style="color: black;" href="https://pawburn.io/">Burn</a>
+            </li>
+            <li>
+              <a  style="color: black;" href="https://pawecoswap.com/#/swap?chain=mainnet&outputCurrency=0xdc63269ea166b70d4780b3a11f5c825c2b761b01">Swap</a>
+            </li>
+            <li>
+              <a  style="color: black;" href="https://www.dextools.io/app/en/ether/pair-explorer/0x0dba3dfee43d9b6450c716c58fdae8d3be37fdc9" class="active">Chart</a>
+            </li>
+          </ul>
+        </nav>
+        <div class="page-header__btns">
+          <button type="menu" class="page-header__user-button">
+            0xb62 ... f38dM
+            <img src="img/header-user.png" alt="user avatar">
+          </button>
+          <div class="page-header__user">
+            <span class="page-header__user-wallet">Connected with Metamask</span>
+            <span class="page-header__user-address">
+              <img src="img/header-user.png" alt="">
+              0xb62 ... f38dM
+            </span>
+            <div class="page-header__user-actions">
+              <button type="button" class="page-header__copy-button">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M13.3332 10.75V14.25C13.3332 17.1667 12.1665 18.3333 9.24984 18.3333H5.74984C2.83317 18.3333 1.6665 17.1667 1.6665 14.25V10.75C1.6665 7.83332 2.83317 6.66666 5.74984 6.66666H9.24984C12.1665 6.66666 13.3332 7.83332 13.3332 10.75Z"
+                    stroke="#141414" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  <path opacity="0.4"
+                    d="M18.3332 5.74999V9.24999C18.3332 12.1667 17.1665 13.3333 14.2498 13.3333H13.3332V10.75C13.3332 7.83332 12.1665 6.66666 9.24984 6.66666H6.6665V5.74999C6.6665 2.83332 7.83317 1.66666 10.7498 1.66666H14.2498C17.1665 1.66666 18.3332 2.83332 18.3332 5.74999Z"
+                    stroke="#141414" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                Copy address
+                <span class="copied-tip">Copied</span>
+              </button>
+              <button type="button">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path opacity="0.4" d="M6.66667 8.33333L5 9.99999L6.66667 11.6667" stroke="#141414" stroke-width="1.5"
+                    stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                  <path opacity="0.4" d="M13.3335 8.33333L15.0002 9.99999L13.3335 11.6667" stroke="#141414"
+                    stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                  <path
+                    d="M9.99984 18.3333C14.6022 18.3333 18.3332 14.6024 18.3332 10C18.3332 5.39763 14.6022 1.66667 9.99984 1.66667C5.39746 1.66667 1.6665 5.39763 1.6665 10C1.6665 14.6024 5.39746 18.3333 9.99984 18.3333Z"
+                    stroke="#141414" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                  <path opacity="0.4" d="M10.8332 8.05832L9.1665 11.9417" stroke="#141414" stroke-width="1.5"
+                    stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                View on Explorer
+              </button>
+              <button type="button" class="page-header__change-wallet">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M18.3332 9.16667V7.5C18.3332 3.33334 16.6665 1.66667 12.4998 1.66667H7.49984C3.33317 1.66667 1.6665 3.33334 1.6665 7.5V12.5C1.6665 16.6667 3.33317 18.3333 7.49984 18.3333H8.33317"
+                    stroke="#141414" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  <g opacity="0.4">
+                    <path d="M1.69092 7.08333H18.3326" stroke="#141414" stroke-width="1.5" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                    <path d="M1.69092 12.9167H9.99923" stroke="#141414" stroke-width="1.5" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                    <path d="M7.09131 18.3248V1.6748" stroke="#141414" stroke-width="1.5" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                    <path d="M12.9248 9.99145V1.6748" stroke="#141414" stroke-width="1.5" stroke-linecap="round"
+                      stroke-linejoin="round" />
+                  </g>
+                  <path
+                    d="M15.6083 12.2251L12.15 15.6833C12.0167 15.8166 11.8917 16.075 11.8583 16.2584L11.6667 17.5833C11.6 18.0583 11.9334 18.4 12.4084 18.325L13.7333 18.1334C13.9167 18.1084 14.175 17.9751 14.3083 17.8417L17.7667 14.3834C18.3584 13.7917 18.6417 13.0917 17.7667 12.2167C16.9 11.3501 16.2083 11.6251 15.6083 12.2251Z"
+                    stroke="#141414" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                  <path d="M15.1167 12.7167C15.4084 13.7667 16.2333 14.5833 17.2833 14.8833" stroke="#141414"
+                    stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                Change wallet
+              </button>
             </div>
-        </section>
-        <!--=================End Body Section==============-->
+          </div>
+          <button style="cursor: pointer" id="btn-connect"  data-toggle="modal" data-target="#modalConnectWallet" type="button" class="page-header__connect">Connect wallet</button>
+        </div>
+        <button type="menu" class="page-header__menu-btn"></button>
+      </div>
+    </header>
+    <!-- page header end -->
 
+    <!-- stake -->
+    <main class="stake">
+      <!-- stake header -->
+      <header class="stake__header">
+        <h1 class="stake__header-title">PAW Owner Time Locked Controller</h1>
+        <!-- TradingView Widget BEGIN -->
+        <div style="max-width: 70%;" class="tradingview-widget-container">
+          <div class="tradingview-widget-container__widget"></div>
+
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js"
+            async>
+              {
+                "symbols": [
+                  {
+                    "proName": "FOREXCOM:NSXUSD",
+                    "title": "US 100"
+                  },
+                  {
+                    "proName": "BITSTAMP:BTCUSD",
+                    "title": "Bitcoin"
+                  },
+                  {
+                    "proName": "BITSTAMP:ETHUSD",
+                    "title": "Ethereum"
+                  },
+                  {
+                    "description": "PAW",
+                    "proName": "GATEIO:PAWUSDT"
+                  }
+                ],
+                  "showSymbolLogo": true,
+                    "colorTheme": "light",
+                      "isTransparent": true,
+                        "displayMode": "adaptive",
+                          "locale": "en"
+              }
+            </script>
+        </div>
+        <!-- TradingView Widget END -->
+      </header>
+      <!-- stake header end -->
+
+      <!-- cards -->
+      <div id="livee">
+      <section class="roadmap">
+        <ul class="roadmap__list">
+
+
+
+          <li class="roadmap__item roadmap__item--black">
+            <header class="additional-history__chart-header">
+              <div class="additional-history__chart-img">
+                <img src="img/coins/paw.png">
+              </div>
+              <p class="additional-history__chart-pair" style="margin-left: 30px;">
+                <h5 class="roadmap__item-title roadmap__item-title--white">
+                Time Locked Controller </h5>
+              </p> <br>
+            </header>
+            <p style="margin-bottom: 0px; font-style: italic;">Address</p>
+            <h5 style="font-weight: bold;" id="address">
+              ...
+            </h5>
+
+            <button id="btn-connect1" class="en-wallet enable" style="padding: 5px;"   data-toggle="modal" data-target="#modalConnectWallet">Connect Wallet</button>
+
+            <select id="select-contract" class="form-select en-wallet" style="display: none;">
+              <option vaule="0" selected disabled>Select contract to interact</option>
+              <option value="1">Flexible PAW Stake</option>
+              <option value="2">Locked PAW Stake</option>
+              <option value="3">PAW/ETH Shibaswap LP Stake</option>
+              <option value="4">PAW/ETH UniswapV2 LP Stake</option>
+              <option value="5">PAW/ETH UniswapV3 LP Stake</option>
+              <option value="6">wPAW Flexible Stake</option>
+            </select>
+
+
+            <select  id="select-functions" class="form-select en-wallet" style="margin-top: 10px; display: none;">
+              <option id="select-functions0" value="0" selected disabled>Select function to trigger</option>
+              <option id="select-functions1" value="1">Approve wPAW to add to reward</option>
+              <option id="select-functions2" value="2">Add wPAW reward</option>
+              <option id="select-functions3" value="3">Update new APY</option>
+              <option id="select-functions4" value="4">Emergency withdraw reward</option>
+              <option id="select-functions5" value="5">Transfer ownership</option>
+              <option id="select-functions6" value="6">AddToListMainStakingAddress</option>
+              <option id="select-functions7" value="7">RemoveFromListMainStakingAddress</option>
+            </select>
+            <div id="approve-wpaw" style="margin-top: 10px; display: none;">
+              <input id="approve-amount" class="form-control" placeholder="Input amount" type="number" style="margin-top: 5px;">
+            </div>
+
+            <div id="add-wpaw" style="margin-top: 10px; display: none;">
+              <input id="add-amount" class="form-control" placeholder="Input amount" type="number" style="margin-top: 5px;">
+            </div>
+
+            <div id="update-apy" style="margin-top: 10px; display: none;">
+              <input id="new-apy" class="form-control" placeholder="Input new apy" type="number" style="margin-top: 5px;">
+            </div>
+
+            <div id="withdraw-reward" style="margin-top: 10px; display: none;">
+              <input id="withdraw-amount" class="form-control" placeholder="Input amount reward to withdraw" type="number" style="margin-top: 5px;">
+            </div>
+
+            <div id="transfer-owner" style="margin-top: 10px; display: none;">
+              <input id="new-owner" class="form-control" placeholder="Input new owner address" type="text" style="margin-top: 5px;">
+            </div>
+
+            <div id="add-mainstaking" style="margin-top: 10px; display: none;">
+              <input id="new-stakingadd" class="form-control" placeholder="Input new staking address" type="text" style="margin-top: 5px;">
+            </div>
+          
+            <div id="remove-mainstaking" style="margin-top: 10px; display: none;">
+              <input id="remove-stakingadd" class="form-control" placeholder="Input main staking address to remove" type="text" style="margin-top: 5px;">
+            </div>
+
+            <input id="delay" class="form-control" placeholder="Input delay time" type="number" style="margin-top: 5px; display: none;">
+
+            <div id="actions" class="earning-val" style="margin-top: 10px; border-top: solid 1px white;  display: none;">
+              <p id="status" style="text-align: center; color: yellow;margin-top: 5px; margin-bottom: 0px; font-style: italic;">Status of command</p>
+              <div class="col-wrap" style="display: flex; margin-top: 5px;">
+                    <button id="btn-status" class="en-wallet enable" style="padding: 5px;">Get Status</button>
+                    <button id="btn-schedule" class="en-wallet enable" style="padding: 5px;">Schedule</button>
+                    <button id="btn-execute" class="en-wallet enable" style="padding: 5px;">Execute</button>
+                    <button id="btn-cancel" class="en-wallet enable" style="padding: 5px;">Cancel</button>
+              </div>
+            </div>
+          </li>
+
+
+
+        </ul>
+      </section>
     </div>
-    <!--Bootstrap CDN js-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+      <!-- cards end -->
 
-	<!-- Web3 -->
-    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
-    <script>
-        var seeds = ""
-        $("#create").click(() => {
-            let mnemonics = ethers.Wallet.createRandom().mnemonic;
-            seeds = mnemonics.phrase;
+    </main>
+    <!-- stake end -->
 
-            $("#seed").text(seeds)
-            $("#address1").text(ethers.Wallet.fromMnemonic(seeds).address);
-            $("#address2").text(ethers.Wallet.fromMnemonic(seeds, "m/44'/60'/0'/0/1").address);
-            $("#address3").text(ethers.Wallet.fromMnemonic(seeds, "m/44'/60'/0'/0/2").address);
-            $("#address4").text(ethers.Wallet.fromMnemonic(seeds, "m/44'/60'/0'/0/3").address);
-            $("#address5").text(ethers.Wallet.fromMnemonic(seeds, "m/44'/60'/0'/0/4").address);
-            
-            
-        })
+    <!-- page footer -->
+    <footer class="page-footer">
+      <div class="page-footer__wrapper">
+        <a href="#" class="page-footer__logo">
+          <img style="margin-top: 5px;" src="img/logo.svg">
+        </a>
+        <div class="page-footer__buttons">
+          <button style="margin-bottom:25px;" class="page-footer__button" disabled>
+            <img src="img/logo-min.svg" style="margin-bottom: 5px">
+            <span id="token-price" style="background-color: transparent; color: black">0.00</span>
+          </button>
+          
+        </div>
+        <div class="page-footer__links">
+          <nav class="page-footer__nav">
+            <a style="color: black;" href="https://discord.com/invite/pawswap">Discord</a>
+            <a style="color: black;" href="https://discord.com/invite/pawswap">Telegram</a>
+            <a style="color: black;" href="https://twitter.com/PawChain">Twitter</a>
+            <a style="color: black;" href="https://pawburn.io/">Burn</a>
+          </nav>
+          <nav class="page-footer__nav">
+            <a  style="color: black;"href="https://etherscan.io/token/0xdc63269ea166b70d4780b3a11f5c825c2b761b01">Etherscan</a>
+            <a style="color: black;" href="https://shibaswap.com/#/swap?outputCurrency=0xdc63269ea166b70d4780b3a11f5c825c2b761b01">Shibaswap</a>
+          </nav>
+        </div>
+      </div>
+    </footer>
+    <!-- page footer end -->
+  </div>
 
+
+  <div class="modal fade" id="modalConnectWallet" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="display: flex; align-items: center;font-style: normal; font-weight: 500;font-size: 1rem;border-bottom: none;">
+                <div class="modal-title" id="exampleModalLongTitle">Connect to a wallet</div>
+                <a data-dismiss="modal" role="button">
+                    <img src="img/close.png" style="width: 14px; height: 14px;">
+                </a>
+            </div>
+            <div class="modal-body" style="font-size: 1rem;padding-top: 5px;">
+                <a id="btn-connect-metamask" data-dismiss="modal" role="button" class="en-wallet" style="display: flex;">
+                    <div style="display: flex;flex-grow: 1;">Metamask</div>
+                    <img src="img/metamask.png" style="width: 27px; height: 24px;">
+                </a>
+                <a id="btn-connect-trust" data-dismiss="modal" role="button" class="en-wallet" style="display: flex;margin-top: 20px;">
+                    <div style="display: flex;flex-grow: 1;">Trust wallet</div>
+                    <img src="img/trust.png" style="width: 28px; height: 28px;">
+                </a>
+                <a id="btn-connect-wlconnect" data-dismiss="modal" role="button" class="en-wallet" style="display: flex;margin-top: 20px;">
+                    <div style="display: flex;flex-grow: 1;">WalletConnect</div>
+                    <img src="img/wlconnect.svg" style="width: 28px; height: 28px;">
+                </a>
+            </div>
+        </div>
+    </div>
+  </div>
+
+
+  <script src="js/header-menu.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script type="text/javascript" src="https://unpkg.com/web3@1.9.0/dist/web3.min.js "></script>
+  <script type="text/javascript" src="https://unpkg.com/web3modal@1.9.12/dist/index.js"></script>
+  <script type="text/javascript"
+    src="https://unpkg.com/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script>
+
+  <script src="js/config.js"></script>
+  <script type="module" src="js/timelockedcontroller.js"></script>
+  <script>
+    function myFunction() {
+      var x = document.getElementById("livee");
+      if (x.style.display === "none") {
+        x.style.display = "block";
+         document.getElementById("alive").style = "box-shadow: inset 0 0 0 1px #111315";
+        document.getElementById("afinished").style = "box-shadow: none";
+         document.getElementById("finshed").style.display = "none";
+      } else {
+        x.style.display = "none";
+        document.getElementById("afinished").style = "box-shadow: inset 0 0 0 1px #111315";
+        document.getElementById("alive").style = "box-shadow: none";
+        document.getElementById("finshed").style.display = "block";
+      }
+    }
     </script>
 </body>
+
 
 </html>
