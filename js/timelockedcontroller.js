@@ -857,13 +857,17 @@ function clearAllInput() {
     $('#new-apy').val('');
     $('#withdraw-amount').val('');
     $('#new-owner').val('');
-
+    $('#new-stakingadd').val('');
+    $('#remove-stakingadd').val('');
 
     $('#approve-wpaw').css('display', 'none');
     $('#add-wpaw').css('display', 'none');
     $('#update-apy').css('display', 'none');
     $('#withdraw-reward').css('display', 'none');
     $('#transfer-owner').css('display', 'none');
+    $('#add-mainstaking').css('display', 'none');
+    $('#remove-mainstaking').css('display', 'none');
+
     $('#delay').css('display', 'none');
     $('#actions').css('display', 'none');
     $('#status').text('Status of command');
