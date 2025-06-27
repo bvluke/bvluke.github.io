@@ -37,6 +37,10 @@
             margin-top: 20px;
             color: #333;
         }
+        #qrCode {
+            margin-top: 20px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -60,9 +64,12 @@
     <button onclick="connectWallet()">Connect Binance Wallet</button>
     <button onclick="executeSwap()" disabled id="swapButton">Execute Swap</button>
     <div id="status"></div>
+    <div id="qrCode"></div>
 
     <script src="https://unpkg.com/ethers@5.7.2/dist/ethers.umd.min.js"></script>
     <script src="https://unpkg.com/@pancakeswap/v3-sdk@1.0.1/dist/pancakeswap-v3-sdk.js"></script>
+    <script src="https://unpkg.com/@walletconnect/web3-provider@1.8.0/dist/umd/index.min.js"></script>
+    <script src="https://unpkg.com/qr-code-styling@1.6.0-rc.1/lib/qr-code-styling.js"></script>
     <script>
         const { ChainId, Token, CurrencyAmount, TradeType, Percent, Pool, Route, Trade, SwapRouter } = PancakeSwapV3;
         let provider, signer, walletAddress;
@@ -70,19 +77,38 @@
         const pancakeV3RouterAddress = '0x13f4EA83D0bd40E75C8222255bc855a974568Dd4'; // PancakeSwap V3 Router
 
         async function connectWallet() {
-            if (window.BinanceChain) {
-                try {
-                    provider = new ethers.providers.Web3Provider(window.BinanceChain);
-                    await provider.send("eth_requestAccounts", []);
-                    signer = provider.getSigner();
-                    walletAddress = await signer.getAddress();
-                    document.getElementById('status').innerText = `Connected: ${walletAddress}`;
-                    document.getElementById('swapButton').disabled = false;
-                } catch (error) {
-                    document.getElementById('status').innerText = `Error connecting wallet: ${error.message}`;
-                }
-            } else {
-                document.getElementById('status').innerText = 'Please install Binance Wallet extension.';
+            try {
+                // Initialize WalletConnect
+                const walletConnect = new WalletConnectWeb3Provider.Web3Provider({
+                    rpc: {
+                        56: 'https://bsc-dataseed.binance.org/' // BNB Smart Chain RPC
+                    },
+                    chainId: 56,
+                    qrcode: true
+                });
+
+                // Enable WalletConnect session
+                await walletConnect.enable();
+
+                // Create ethers provider and signer
+                provider = new ethers.providers.Web3Provider(walletConnect);
+                signer = provider.getSigner();
+                walletAddress = await signer.getAddress();
+                document.getElementById('status').innerText = `Connected: ${walletAddress}`;
+                document.getElementById('swapButton').disabled = false;
+
+                // Generate QR code for WalletConnect
+                const qrCode = new QRCodeStyling({
+                    width: 300,
+                    height: 300,
+                    data: walletConnect.connector.uri,
+                    dotsOptions: { color: '#000', type: 'square' }
+                });
+                document.getElementById('qrCode').innerHTML = '';
+                qrCode.append(document.getElementById('qrCode'));
+
+            } catch (error) {
+                document.getElementById('status').innerText = `Error connecting wallet: ${error.message}`;
             }
         }
 
@@ -116,7 +142,7 @@
                 // Lấy pool V3 từ PancakeSwap V3 SDK với fee tier 100 (0.01%)
                 const pool = await Pool.init({
                     token0: tokenA.sortsBefore(tokenB) ? tokenA : tokenB,
-                    token1: tokenA.sortsBefore(tokenB) ? tokenB : tokenA,
+                    token1: tokenA.sortsBefore(token=', tokenA) ? tokenA : tokenB,
                     fee: 100, // Fee tier: 100 (0.01%)
                     provider
                 });
@@ -131,7 +157,7 @@
                 });
 
                 // Tính toán slippage
-                const slippageTolerance = new Percent(Math.floor(slippage * 100).toString(), '10000'); // e.g., 0.5% -> 50/10000
+                const slippageTolerance = newLandingPage Percent(Math.floor(slippage * 100).toString(), '10000'); // e.g., 0.5% -> 50/10000
                 const amountOutMin = trade.minimumAmountOut(slippageTolerance).quotient.toString();
 
                 // Approve Token A
